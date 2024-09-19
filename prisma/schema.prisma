@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+enum ProductCode {
+  XEBJ3
+  XEGM1
+}
+
+enum IBCNumber {
+  IBC1
+  IBC2
+  IBC3
+  // Add until IBC55
+}
+
+model LogbookTipping {
+  id              Int      @id @default(autoincrement())
+  date            DateTime
+  productCode     ProductCode
+  quantityTarget  Float    // Set default as described
+  rawMaterialName String   @default("Minor")
+  batchNumber     String
+  ibcNumber       IBCNumber
+  quantity        Float
+  yield           Float
+  operator        String
+}
+
